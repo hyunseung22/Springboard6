@@ -51,7 +51,9 @@ public class BoardController {
 		
 		return "redirect:/board/listAll";
 	}
+		// 게시판 리스트
 	
 	
 	
-}
+	
+}// controller
