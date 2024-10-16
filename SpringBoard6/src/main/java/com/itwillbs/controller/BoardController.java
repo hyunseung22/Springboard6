@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,7 +17,7 @@ import com.itwillbs.service.BoardService;
 @RequestMapping(value = "/board/*") // /board/~ 로 시작하는 모든주소를 처리하는 컨트롤러
 public class BoardController {
 	
-	//BoardService 객체 주입
+	// BoardService 객체 주입
 	@Inject
 	private BoardService bService;
 	
@@ -46,24 +48,29 @@ public class BoardController {
 		
 		// 서비스객체 -> DAO객체 호출
 		bService.regist(vo);
-		logger.debug(" 글쓰기 완료! " );
+		logger.debug(" 글쓰기 완료! ");
 		// 페이지 이동(list)
 		
 		return "redirect:/board/listAll";
 	}
 	
-	// 게시판 리스트 - GET 
+	// 게시판 리스트 - GET
 	@RequestMapping(value = "/listAll",method = RequestMethod.GET)
 	public void listAllGET() throws Exception{
 		logger.debug(" /listAll -> listAllGET() 호출 ");
 		
 		// 서비스 -> DAO 메서드 호출 (출력할 정보 가져오기)
-		
+		List<BoardVO> boardList = bService.listAll();
+		logger.debug(""+boardList);
 		// Model 객체를 사용해서 정보를 저장
 		
-		// 연결된 뷰페이지에서 출력
+		// 연결된 뷰페이지에서 출력		
 		
 	}
+	
+	
+	
+	
 	
 	
 }// controller

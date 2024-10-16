@@ -1,6 +1,8 @@
 package com.itwillbs.domain;
 
-import java.security.Timestamp;
+
+
+import java.sql.Timestamp;
 
 import lombok.Data;
 
