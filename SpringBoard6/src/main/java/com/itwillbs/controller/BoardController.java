@@ -41,7 +41,7 @@ public class BoardController {
 	
 	// 글쓰기 - 입력받은 정보를 처리하는 동작 - POST
 	@RequestMapping(value = "/regist",method = RequestMethod.POST)
-	public String registPOST(BoardVO vo ) throws Exception {
+	public String registPOST(BoardVO vo,RedirectAttributes rttr ) throws Exception {
 		logger.debug(" /regist.jsp -> registPOST() 호출 ");
 		
 		// 한글처리 인코딩 => 생략(web.xml 필터)
@@ -51,6 +51,9 @@ public class BoardController {
 		// 서비스객체 -> DAO객체 호출
 		bService.regist(vo);
 		logger.debug(" 글쓰기 완료! ");
+		//뷰페이지에 전달정보 저장(1회성)
+		rttr.addFlashAttribute("result", "INSERTOK");
+		
 		// 페이지 이동(list)
 		
 		return "redirect:/board/listAll";
