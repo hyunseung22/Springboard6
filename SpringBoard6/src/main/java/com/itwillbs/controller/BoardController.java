@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BoardVO;
 import com.itwillbs.service.BoardService;
@@ -40,7 +41,7 @@ public class BoardController {
 	
 	// 글쓰기 - 입력받은 정보를 처리하는 동작 - POST
 	@RequestMapping(value = "/regist",method = RequestMethod.POST)
-	public String registPOST(BoardVO vo) throws Exception {
+	public String registPOST(BoardVO vo ) throws Exception {
 		logger.debug(" /regist.jsp -> registPOST() 호출 ");
 		
 		// 한글처리 인코딩 => 생략(web.xml 필터)
