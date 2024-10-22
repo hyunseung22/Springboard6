@@ -58,10 +58,13 @@ result : ${result }
 	var result = '${result }';
 	
 	if(result == "INSERTOK"){
-		alert("정상적으로 글쓰기 동작 완료 !")
+		alert("정상적으로 글쓰기 동작 완료 !");
+	}
+	if(result == "modifyOK"){
+		alert(" 글정보 수정 완료! ")
 	}
 	
-	alert(" 정상적으로 글쓰기 동작 완료! ");
+	
 </script>
 	
 	<%@ include file="../include/footer.jsp" %>
