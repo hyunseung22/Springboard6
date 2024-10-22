@@ -35,19 +35,35 @@ public class BoardServiceImpl implements BoardService {
 		logger.debug(" DAO의 글 리스트 조회하는 메서드 호출 ");
 		return bdao.listAll();
 	}
-	
+
 	@Override
 	public BoardVO read(int bno) throws Exception {
-		logger.debug(" read(int bno)호출");
+		logger.debug(" read(int bno) 호출 ");		
 		return bdao.getBoard(bno);
 	}
 
 	@Override
 	public void updateViewcnt(int bno) throws Exception {
-		logger.debug("updateViewcnt(int bno)호출");
-		bdao.updateviewcnt(bno);
-		
+		logger.debug(" updateViewcnt(int bno) 호출 ");
+		bdao.updateViewcnt(bno);
 	}
+	
+	@Override
+	public void modify(BoardVO vo) throws Exception{
+		logger.debug(" modify(BoardVO vo) 호출");
+		bdao.updateBoard(vo);
+	}
+
+	@Override
+	public int remove(int bno) throws Exception {
+		logger.debug(" remove(int bno) 호출");
+		return bdao.deleteBoard(bno);
+	}
+	
+	
+	
+	
+	
 	
 
 }

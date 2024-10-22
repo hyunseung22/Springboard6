@@ -40,3 +40,14 @@ CREATE TABLE `db_board` (
   `regdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`bno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+*Mybatis에서 문법 차이
+
+#{} : PreparedStatement 객체의 파라메터값을 전달할때 사용 (? 값 넣기)
+	     자동으로 입력값 처리 ( get/set 메서드 호출)
+${} : 단순 문자열 치환
+	  SQL구문 요소를 변경하고자 할때 사용
+	  insert into tbl_member values('"+name+"','"+email"'+. . .);
+	  
+	  insert into${테이블명} values('"+name+"','"+email"'+. . .);
