@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 import com.itwillbs.service.BoardService;
 
 @Controller
@@ -78,6 +79,30 @@ public class BoardController {
 		logger.debug(" /board/listAll.jsp 페이지 이동 ");
 	}
 	
+	// 게시판 리스트(page) - GET
+	@RequestMapping(value = "/listPage",method = RequestMethod.GET)
+	public String listPageGET(Criteria cri, Model model) throws Exception{
+		logger.debug(" /listPage -> listPageGET() 호출 ");
+		
+//		Criteria cri = new Criteria();
+//		cri.setPage(2);
+//		cri.setPageSize(20);
+		
+		// 서비스 -> DAO 메서드 호출 (출력할 정보 가져오기)
+		//List<BoardVO> boardList = bService.listAll();
+		List<BoardVO> boardList = bService.listPage(cri);
+		//logger.debug(" "+boardList);
+		logger.debug(" 리스트 사이즈 : "+boardList.size());
+		// Model 객체를 사용해서 정보를 저장
+		//		model.addAttribute(boardList);
+		model.addAttribute("boardList", boardList);
+		
+		// 연결된 뷰페이지에서 출력		
+		logger.debug(" /board/listAll.jsp 페이지 이동 ");
+		
+		return "/board/listAll";
+	}
+	
 	
 	// 글 본문내용 보기
 	@RequestMapping(value = "/read",method = RequestMethod.GET)
@@ -129,32 +154,31 @@ public class BoardController {
 		bService.modify(vo);
 		
 		// 결과 확인 값을 전달(1회성)
-		rttr.addFlashAttribute("result","modifyOK");
+		rttr.addFlashAttribute("result", "modifyOK");
+		
 		// 다시 글 리스트 페이지로 이동
 		return "redirect:/board/listAll";
 	}
 	
 	// 게시판 글 삭제 - POST
 	@RequestMapping(value = "/remove",method = RequestMethod.POST)
-	public String removePOST(@RequestParam("bno")int bno) throws Exception{
-		logger.debug(" /board/remove - > removePOST () 호출");
+	public String removePOST(@RequestParam("bno") int bno) throws Exception{
+		logger.debug(" /board/remove -> removePOST()호출 ");
 		
-		//전달정보 저장 (bno)
+		// 전달정보 저장(bno)
 		logger.debug(" bno : "+bno);
-		
-		// 서비스를 -> DAO : 게시판 글 삭제 동작
+		// 서비스 -> DAO : 게시판 글 삭제 동작
 		int result = bService.remove(bno);
 		
 		if(result == 0) {
-			//삭제 결과가 없음
+			// 삭제 결과가 없음
 			return "redirect:/board/read?bno="+bno;
 		}
 		
-		//result !=0 글 삭제 성공
+		// result != 0   글 삭제 성공
 		
-		return"redirect:/board/listAll";
-		}
-	
+		return "redirect:/board/listAll";
+	}
 	
 	
 	
